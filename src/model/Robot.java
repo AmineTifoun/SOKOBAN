@@ -9,7 +9,7 @@ public class Robot implements Deplacable {
     public Robot ( String  map){
        switch(map){
         case "map1.txt":
-            position = new Point(4, 7);
+            position = new Point(4, 6);
             break;
         case "map2.txt":
             position = new Point(9 , 13);

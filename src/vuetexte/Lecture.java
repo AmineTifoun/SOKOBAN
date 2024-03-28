@@ -15,14 +15,19 @@ public class Lecture {
             FileReader file = new FileReader("C:/Users/amine/OneDrive/Bureau/SOKOBAN/doc/map/"+Nomfichier);
             BufferedReader buffer = new BufferedReader(file);
             StringBuilder Line = new StringBuilder();
-            Line.append(buffer.readLine());
+            String Content = buffer.readLine();
+            Line.append(Content);
             this.setTaille(Line.length());
-            while( Line != null){
+            while( Content != null){
                 this.nb_lignes++;
                 list_ligne.add(Line);
-                Line.delete(0, taille);
-                Line.append(buffer.readLine());
+                Line =  new StringBuilder();
+                Content = buffer.readLine();
+                    if( Content != null){ 
+                    Line.append(Content);
+                    }
             }
+        
             buffer.close() ;
         }catch(IOException e){
             System.out.println(e);
@@ -45,6 +50,19 @@ public class Lecture {
         tmp.append('\n');
        }
        return tmp.toString();
+    }
+
+
+  
+
+
+    public int getNb_lignes() {
+        return nb_lignes;
+    }
+
+
+    public int getTaille() {
+        return taille;
     }
     
 }
