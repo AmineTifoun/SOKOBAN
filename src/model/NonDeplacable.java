@@ -3,7 +3,7 @@ import java.awt.Point ;
 
 
 public abstract class NonDeplacable extends Pion{
-    protected SYMBOLE caractere ; 
+
 
     public NonDeplacable( int x , int y){
         super(x , y);
@@ -15,7 +15,7 @@ public abstract class NonDeplacable extends Pion{
 
     @Override
     public String toString(){
-        return this.caractere.toString();
+        return this.symbole.toString();
     }
 
 }

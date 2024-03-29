@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.awt.* ;
 public class Caisse extends Pion implements Deplacable  {
-    private SYMBOLE symbole ; 
+   
 
     public Caisse ( int x , int y){
         super(x,y);
@@ -20,6 +20,8 @@ public class Caisse extends Pion implements Deplacable  {
             dep.add(point);
             StringBuilder tmp = plan.get(depX);
             ArrayList<Pion> ligne_carte = cartes.get(depX);
+            ligne_carte.set(depY,(Pion) new Chemin(depX , depY ));
+            tmp.setCharAt(depY, SYMBOLE.CHEMIN.getCaractere());
             this.setPosition(new Point(depX , depY+1));
             ligne_carte.set(depY+1, this);
             tmp.setCharAt(depY+1, this.symbole.getCaractere());
@@ -34,8 +36,12 @@ public class Caisse extends Pion implements Deplacable  {
         point = new Point(depX-1 , depY);
         if( ! Depimpossible(depX-1, depY, plan)){
             dep.add(point);
-            StringBuilder tmp = plan.get(depX-1);
-            ArrayList<Pion> ligne_carte = cartes.get(depX-1);
+            StringBuilder tmp = plan.get(depX);
+            ArrayList<Pion> ligne_carte = cartes.get(depX);
+            ligne_carte.set(depY,(Pion) new Chemin(depX , depY ));
+            tmp.setCharAt(depY, SYMBOLE.CHEMIN.getCaractere());
+            tmp = plan.get(depX-1);
+            ligne_carte = cartes.get(depX-1);
             this.setPosition(new Point(depX-1 , depY));
             ligne_carte.set(depY, this);
             tmp.setCharAt(depY, this.symbole.getCaractere());
@@ -51,8 +57,12 @@ public class Caisse extends Pion implements Deplacable  {
         point = new Point(depX-1 , depY);
         if( ! Depimpossible(depX-1, depY, plan)){
             dep.add(point);
-            StringBuilder tmp = plan.get(depX+1);
-            ArrayList<Pion> ligne_carte = cartes.get(depX+1);
+            StringBuilder tmp = plan.get(depX);
+            ArrayList<Pion> ligne_carte = cartes.get(depX);
+            ligne_carte.set(depY,(Pion) new Chemin(depX , depY ));
+            tmp.setCharAt(depY, SYMBOLE.CHEMIN.getCaractere());
+            tmp = plan.get(depX+1);
+            ligne_carte = cartes.get(depX+1);
             this.setPosition(new Point(depX+1 , depY));
             ligne_carte.set(depY, this);
             tmp.setCharAt(depY, this.symbole.getCaractere());
@@ -71,6 +81,8 @@ public class Caisse extends Pion implements Deplacable  {
             dep.add(point);
             StringBuilder tmp = plan.get(depX);
             ArrayList<Pion> ligne_carte = cartes.get(depX);
+            ligne_carte.set(depY,(Pion) new Chemin(depX , depY ));
+            tmp.setCharAt(depY, SYMBOLE.CHEMIN.getCaractere());
             this.setPosition(new Point(depX , depY-1));
             ligne_carte.set(depY-1, this);
             tmp.setCharAt(depY-1, this.symbole.getCaractere());

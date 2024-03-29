@@ -3,7 +3,7 @@ package model;
 public class Vide extends NonDeplacable{
     public Vide( int x , int y){
         super(x,y);
-        this.caractere = SYMBOLE.VIDE;
+        this.symbole = SYMBOLE.VIDE;
     }
 
     public boolean PlayerOnMe(){

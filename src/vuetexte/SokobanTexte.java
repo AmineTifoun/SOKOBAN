@@ -9,6 +9,5 @@ public class SokobanTexte {
         partie.jouer();
     }
 }
-
     
 

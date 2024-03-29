@@ -7,9 +7,9 @@ public class Carte {
     private int width ; 
     private int height ; 
     private ArrayList<StringBuilder> plan ; /* Tableau dans lequel on recupere la map */
-    private ArrayList<ArrayList<Pion>> cartes = new ArrayList<ArrayList<Pion>>() ; /* Carte contenant les object cartes NonDeplacable */
-    private ArrayList<Destination> PointsDest ;
-    private Robot robot ;
+    private ArrayList<ArrayList<Pion>> cartes = new ArrayList<ArrayList<Pion>>() ; /* Carte contenant les object PIONs */
+    private ArrayList<Destination> PointsDest ;/* Carte contenant les coordonnees des destinations */
+    private Robot robot ;/* robot jouant dans la map */
 
     public Carte ( String nomMap ){
         Lecture Lec = new Lecture(nomMap);
@@ -43,6 +43,7 @@ public class Carte {
     }
 
     public int deplacer(char c){/* Q gauche Z haut D right S ver le bas  */
+        System.out.println(" VEUILLEZ INTRODUIRE L'UN DES CARACTERES  Z[z]( HAUT ) Q[q]( BAS ) S[s]( BAS ) D[d]( DROITE )");
         Point position = this.robot.getPosition();
         Point nvposition = null;
         ArrayList<Point> positions ;/* Contient lancienne coordonnée et la nouvelle pour pouvoir mettre a jour la carte */
@@ -125,7 +126,6 @@ public class Carte {
                     case '#':
                         carte = new Murs(i , j);
                         break;
-
                     case '/':
                         carte = new Vide(i , j);
                         break;
@@ -134,6 +134,7 @@ public class Carte {
                         break;
                     case '$':
                         carte = new Caisse(i,j);
+                        break;
                     case '@':
                         Pion robot = new Robot("map1.txt");
                         robot.setPosition(new Point(i,j));
@@ -141,6 +142,7 @@ public class Carte {
                         break;
                     case ' ':
                         carte = new Chemin(i, j);
+                        break;
                     default:
                         carte = new Chemin(i, j);
                 }
@@ -153,14 +155,20 @@ public class Carte {
         
     }
     public boolean findepartie(){
-        return false;
+        boolean fin = true ;
+        for (Destination p : this.PointsDest){
+             ArrayList<Pion> ligne = this.cartes.get((int) p.getPosition().getX());
+             Pion c = ligne.get((int) p.getPosition().getY());
+             fin = fin &&  c.getSymbole().getCaractere() == '$';
+        }
+            return fin;
     }
 
     public boolean ROBOTONDEST( Point point){
         if ( point != null){
             for ( Destination b : this.PointsDest){
                 if( point.equals(b.getPosition())){
-                    return b.PlayerOnMe();/* Joueur sur Dest*/
+                    return b.PlayerOnMe();/* Robot sur Case destination*/
                 }
             }
         }

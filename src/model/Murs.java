@@ -3,7 +3,7 @@ package model;
 public class Murs extends NonDeplacable{
     public Murs (int x , int y){
         super(x,y);
-        this.caractere = SYMBOLE.MURS ;
+        this.symbole = SYMBOLE.MURS ;
     }
 
     public boolean PlayerOnMe(){
