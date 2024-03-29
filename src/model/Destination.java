@@ -1,5 +1,5 @@
 package model;
-
+import java.awt.*;
 public class Destination extends NonDeplacable {
     public Destination( int x , int y){
         super(x,y);
@@ -12,6 +12,9 @@ public class Destination extends NonDeplacable {
 
     public boolean CaisseOnMe(){
         return true ;
+    }
+    public Point getPosition() {
+       return this.POINT;
     }
 
 }

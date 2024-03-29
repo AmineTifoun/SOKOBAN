@@ -5,9 +5,10 @@ import model.*;
 
 public class SokobanTexte {
     public static void main(String[] args) {
-        Carte carte =new Carte("map3.txt");
-        System.out.println(carte);
-    }    
+        ModeTexte partie = new ModeTexte("map1.txt");
+        partie.jouer();
+    }
 }
+
     
 

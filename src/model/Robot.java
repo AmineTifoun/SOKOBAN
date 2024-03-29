@@ -29,27 +29,31 @@ public class Robot implements Deplacable {
         ArrayList<Point> dep = new ArrayList<Point>();
         dep.add(point);
         point = new Point(depX , depY-1);
-        if( ! impossible(depX, depY-1, plan)){
+        if( ! Depimpossible(depX, depY-1, plan)){
             dep.add(point);
-            StringBuilder tmp = plan.get(depY-1);
-            tmp.setCharAt(depX, ' ');
-            tmp = plan.get(depY-1);
-            tmp.setCharAt(depX, this.symbole.getCaractere());
+            StringBuilder tmp = plan.get(depX);
+            tmp.setCharAt(depY, ' ');
+            tmp = plan.get(depX);
+            tmp.setCharAt(depY-1, this.symbole.getCaractere());
             return dep;
         }
         return null ;
     }
+    public void setPosition(Point position) {
+        this.position = position;
+    }
+
     public ArrayList<Point> goRight(int depX , int depY , ArrayList<StringBuilder> plan){
         Point point = new Point(depX , depY);
         ArrayList<Point> dep = new ArrayList<Point>();
         dep.add(point);
         point = new Point(depX , depY+1);
-        if( ! impossible(depX, depY+1, plan)){
+        if( ! Depimpossible(depX, depY+1, plan)){
             dep.add(point);
-            StringBuilder tmp = plan.get(depY+1);
-            tmp.setCharAt(depX, ' ');
-            tmp = plan.get(depY+1);
-            tmp.setCharAt(depX, this.symbole.getCaractere());
+            StringBuilder tmp = plan.get(depX);
+            tmp.setCharAt(depY, ' ');
+            tmp = plan.get(depX);
+            tmp.setCharAt(depY+1, this.symbole.getCaractere());
             return dep;
         }
         return null ;
@@ -59,12 +63,12 @@ public class Robot implements Deplacable {
         ArrayList<Point> dep = new ArrayList<Point>();
         dep.add(point);
         point = new Point(depX-1 , depY);
-        if( ! impossible(depX-1, depY, plan)){
+        if( ! Depimpossible(depX-1, depY, plan)){
             dep.add(point);
-            StringBuilder tmp = plan.get(depY);
-            tmp.setCharAt(depX, ' ');
-            tmp = plan.get(depY);
-            tmp.setCharAt(depX-1, this.symbole.getCaractere());
+            StringBuilder tmp = plan.get(depX);
+            tmp.setCharAt(depY, ' ');
+            tmp = plan.get(depX-1);
+            tmp.setCharAt(depY, this.symbole.getCaractere());
             return dep;
         }
         return null ;
@@ -74,19 +78,21 @@ public class Robot implements Deplacable {
         ArrayList<Point> dep = new ArrayList<Point>();
         dep.add(point);
         point = new Point(depX+1 , depY);
-        if( ! impossible(depX+1, depY, plan)){
+        if( ! Depimpossible(depX+1, depY, plan)){
             dep.add(point);
-            StringBuilder tmp = plan.get(depY);
-            tmp.setCharAt(depX, ' ');
-            tmp = plan.get(depY);
-            tmp.setCharAt(depX+1, this.symbole.getCaractere());
+            StringBuilder tmp = plan.get(depX);
+            tmp.setCharAt(depY, ' ');
+            tmp = plan.get(depX+1);
+            tmp.setCharAt(depY, this.symbole.getCaractere());
             return dep;
         }
         return null ;
     }
 
-    public boolean impossible( int xdest , int ydest , ArrayList<StringBuilder> plan){
-        char c = plan.get(ydest).charAt(xdest);
+
+
+    public boolean Depimpossible( int xdest , int ydest , ArrayList<StringBuilder> plan){
+        char c = plan.get(xdest).charAt(ydest);
             return c == '#' || c == '/';
         }
 
