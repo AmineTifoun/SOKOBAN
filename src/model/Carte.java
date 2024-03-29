@@ -92,7 +92,7 @@ public class Carte {
                 return 0 ;
             }else{/* deplacement reussi */
                 this.robot.setPosition(nvposition);
-                if( ROBOTONDEST(nvposition)){/* ROBOT SUR DEST ROBOT CHANGE DE DE SYMBOLE*/
+                if( ROBOTONDEST(nvposition)){/* ROBOT SUR DESTINATION ROBOT CHANGE DE DE SYMBOLE*/
                     setPlan((int) nvposition.getX() , (int) nvposition.getY() , SYMBOLE.ROBOT_DEST.getCaractere());
                 }
                 return 1 ;
@@ -177,7 +177,15 @@ public class Carte {
 
     public String toString(){
         StringBuilder temp = new StringBuilder();
+        temp.append("\n");
+        int consoleWidth = 150; // Largeur de la console, ajustez selon vos besoins
+        // Calcul de l'espacement nécessaire pour centrer le texte
+        int padding = (consoleWidth - this.plan.size()) / 2;
         for( StringBuilder a  : this.plan){
+            // Affiche l'espacement avant le texte pour le centrer
+            for (int i = 0; i < padding; i++) {
+                temp.append(" ");
+            }
                 temp.append(a);
                 temp.append('\n');
         }

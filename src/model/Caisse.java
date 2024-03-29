@@ -54,8 +54,8 @@ public class Caisse extends Pion implements Deplacable  {
         Point point = new Point(depX , depY);
         ArrayList<Point> dep = new ArrayList<Point>();
         dep.add(point);
-        point = new Point(depX-1 , depY);
-        if( ! Depimpossible(depX-1, depY, plan)){
+        point = new Point(depX+1 , depY);
+        if( ! Depimpossible(depX+1, depY, plan)){
             dep.add(point);
             StringBuilder tmp = plan.get(depX);
             ArrayList<Pion> ligne_carte = cartes.get(depX);
