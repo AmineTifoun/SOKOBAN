@@ -2,12 +2,11 @@ package model ;
 import java.awt.Point ;
 
 
-public abstract class NonDeplacable{
-    protected SYMBOLE caractere ;
-    protected Point POINT = new Point() ; 
+public abstract class NonDeplacable extends Pion{
+    protected SYMBOLE caractere ; 
 
     public NonDeplacable( int x , int y){
-        POINT.setLocation(x, y);
+        super(x , y);
     }
 
 

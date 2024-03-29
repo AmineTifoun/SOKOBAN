@@ -7,7 +7,7 @@ public class Carte {
     private int width ; 
     private int height ; 
     private ArrayList<StringBuilder> plan ; /* Tableau dans lequel on recupere la map */
-    private ArrayList<ArrayList<NonDeplacable>> cartes = new ArrayList<ArrayList<NonDeplacable>>() ; /* Carte contenant les object cartes NonDeplacable */
+    private ArrayList<ArrayList<Pion>> cartes = new ArrayList<ArrayList<Pion>>() ; /* Carte contenant les object cartes NonDeplacable */
     private ArrayList<Destination> PointsDest ;
     private Robot robot ;
 
@@ -51,28 +51,28 @@ public class Carte {
             switch(c){
                 case 'q':
                 case 'Q':
-                    positions = this.robot.goLeft((int) position.getX(),(int) position.getY(),plan);
+                    positions = this.robot.goLeft((int) position.getX(),(int) position.getY(),plan , this.cartes);
                     if(positions != null){
                         nvposition =positions.get(1);
                     }
                     break;
                 case 'z':
                 case 'Z':
-                positions =this.robot.goUp((int)position.getX(),(int)position.getY(),plan);
+                positions =this.robot.goUp((int)position.getX(),(int)position.getY(),plan , this.cartes);
                     if(positions != null){
                         nvposition =positions.get(1);
                     }
                     break;
                 case 'd':
                 case 'D':
-                    positions = this.robot.goRight((int) position.getX(),(int) position.getY(),plan);
+                    positions = this.robot.goRight((int) position.getX(),(int) position.getY(),plan , this.cartes);
                     if(positions != null){
                         nvposition = positions.get(1);
                     };
                     break;
                 case 's':
                 case 'S':
-                    positions = this.robot.goDown((int) position.getX(),(int) position.getY(),plan);
+                    positions = this.robot.goDown((int) position.getX(),(int) position.getY(),plan , this.cartes);
                     if(positions != null){
                         nvposition = positions.get(1);
                     }
@@ -115,8 +115,8 @@ public class Carte {
     }
 
     public void ContruireCarte(){
-        NonDeplacable carte ;
-        ArrayList<NonDeplacable> ligne_carte = new ArrayList<NonDeplacable>() ;
+        Pion carte ;
+        ArrayList<Pion> ligne_carte = new ArrayList<Pion>() ;
         for ( int i = 0 ; i< this.height ; i++){
             StringBuilder tmp = this.plan.get(i);
             for( int j = 0 ; j<this.width; j++){
@@ -124,23 +124,30 @@ public class Carte {
                 switch(c){
                     case '#':
                         carte = new Murs(i , j);
-                        ligne_carte.add(carte);
+                        break;
 
-                }switch(c){
                     case '/':
                         carte = new Vide(i , j);
-                        ligne_carte.add(carte);
-
-                }
-                switch(c){
+                        break;
                     case '.':
                         carte = new Destination(i , j);
-                        ligne_carte.add(carte);
-
+                        break;
+                    case '$':
+                        carte = new Caisse(i,j);
+                    case '@':
+                        Pion robot = new Robot("map1.txt");
+                        robot.setPosition(new Point(i,j));
+                        carte = robot ;
+                        break;
+                    case ' ':
+                        carte = new Chemin(i, j);
+                    default:
+                        carte = new Chemin(i, j);
                 }
+                ligne_carte.add(carte);
             }
             this.cartes.add(ligne_carte);
-            ligne_carte = new ArrayList<NonDeplacable>() ;
+            ligne_carte = new ArrayList<Pion>() ;
 
         }
         
