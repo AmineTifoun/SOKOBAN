@@ -1,8 +1,11 @@
 package vuegraphique;
 import model.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -10,23 +13,26 @@ import javax.swing.JPanel;
 
 public class VueSokoban {
     private Carte carte ;
-    private JFrame window ;
+    private JFrame window = new JFrame() ;
     private int Score = 1;
+    private KeyPressedListener listener ;
+    private int niveau = 1 ;
     
    
 
     public VueSokoban(String map) {
         this.carte = new Carte(map);
-        setCarte();
+        setFrame();
         
     } 
 
-    public void setCarte() {
-        window = new JFrame();
+    public void setFrame() { 
         JPanel outside = new JPanel(new BorderLayout());
         JPanel scoreContainer = new JPanel(new BorderLayout());
+        JComboBox<String> comboBox = setComboBox();
         JLabel score = new JLabel("Nombre de Deplacement  : " + this.Score);
         scoreContainer.add(score , BorderLayout.WEST);
+        scoreContainer.add(comboBox , BorderLayout.EAST);
         scoreContainer.setBackground(Color.WHITE);
         outside.add(scoreContainer , BorderLayout.NORTH);
         outside.add(setGrille());
@@ -34,11 +40,40 @@ public class VueSokoban {
         window.setTitle("SOKOBAN");
         window.pack(); // Ajuster automatiquement la taille de la fenêtre
         window.setVisible(true);
-        window.addKeyListener(new KeyPressedListener(carte , this));
+        this.listener  = new KeyPressedListener(carte , this);
+        window.addKeyListener(listener);
         window.requestFocusInWindow();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
+    public JComboBox<String> setComboBox(){
+        String[] options = {"Niveau 1", "Niveau 2", "Niveau 3"};
+        JComboBox<String> comboBox = new JComboBox<>(options); 
+        comboBox.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String niv = (String) comboBox.getSelectedItem();
+                switch(niv) {
+                    case "Niveau 1":
+                        VueSokoban.this.setCarte("map1.txt");
+                        break;
+                    case "Niveau 2":
+                        VueSokoban.this.setCarte("map2.txt");
+                        break;
+                    case "Niveau 3":
+                        VueSokoban.this.setCarte("map3.txt");
+                        break;
+                    default:
+                        VueSokoban.this.setCarte("map1.txt");
+                }
+                VueSokoban.this.setScore(0);
+                VueSokoban.this.UpdateGrille();
+            }
+        }); 
+        return comboBox; 
+    }
+    public void setCarte( String niv){
+        this.carte= new Carte(niv);
+       }
 
     public int getScore() {
         return Score;
@@ -91,8 +126,11 @@ public class VueSokoban {
                 inside.add(btn, gbc); // Ajout du bouton avec les contraintes spécifiées
             }
         }
+        this.listener.updateListener(carte);
         inside.revalidate(); 
         inside.repaint(); 
+        window.requestFocusInWindow();
+        window.pack(); // Ajuster automatiquement la taille de la fenêtre
     }
     
     public JLabel setImage( char c1){

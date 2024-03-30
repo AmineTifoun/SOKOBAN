@@ -34,7 +34,6 @@ public class Robot extends Pion implements Deplacable {
         dep.add(point);
         point = new Point(depX , depY-1);
         if( this.PushPossible(depX, depY-1, plan)){
-            System.out.println(cartes.get(depX));
             Caisse caisse =(Caisse) cartes.get(depX).get(depY-1) ;
             caisse.goLeft(depX, depY-1, plan , cartes);
         }
@@ -69,7 +68,6 @@ public class Robot extends Pion implements Deplacable {
             dep.add(point);
             StringBuilder tmp = plan.get(depX);
             ArrayList<Pion> ligne_carte = cartes.get(depX);
-            System.out.println(ligne_carte);
             ligne_carte.set(depY,(Pion) new Chemin(depX , depY ));
             tmp.setCharAt(depY, SYMBOLE.CHEMIN.getCaractere());
             this.setPosition(new Point(depX , depY+1));
@@ -86,12 +84,10 @@ public class Robot extends Pion implements Deplacable {
         dep.add(point);
         point = new Point(depX-1 , depY);
         if( this.PushPossible(depX-1, depY, plan)){
-            System.out.println(depX+" "+depY);
-            System.out.println(cartes.get(depX));
-            System.out.println(cartes.get(depX-1));
+
             Caisse caisse =(Caisse) cartes.get(depX-1).get(depY) ;
             caisse.goUp(depX-1, depY , plan , cartes);
-            System.out.println(cartes.get(depX-1));
+
 
         }
         if( ! Depimpossible(depX-1, depY, plan)){

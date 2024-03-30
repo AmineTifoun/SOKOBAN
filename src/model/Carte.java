@@ -47,12 +47,9 @@ public class Carte {
     }
 
     public int deplacer(char c){/* Q gauche Z haut D right S ver le bas  */
-        System.out.println(" VEUILLEZ INTRODUIRE L'UN DES CARACTERES  Z[z]( HAUT ) Q[q]( BAS ) S[s]( BAS ) D[d]( DROITE )");
         Point position = this.robot.getPosition();
         Point nvposition = null;
         ArrayList<Point> positions ;/* Contient lancienne coordonnée et la nouvelle pour pouvoir mettre a jour la carte */
-        System.out.println("Liste of Points :"+ PointsDest);
-        System.out.println(position);
             switch(c){
                 case 'q':
                 case 'Q':
@@ -88,16 +85,15 @@ public class Carte {
                     return 0 ;
                     
             }
-     
-            if( ROBOTONDEST(position)){/* Robot etait sur DEST ON NE CHANGE PAS LE SSYMBOLE DE DESTINATION*/
-                setPlan((int) position.getX() , (int) position.getY() , SYMBOLE.DESTINATION.getCaractere());
-            }
             if( nvposition == null){
                 return 0 ;
             }else{/* deplacement reussi */
                 this.robot.setPosition(nvposition);
                 if( ROBOTONDEST(nvposition)){/* ROBOT SUR DESTINATION ROBOT CHANGE DE DE SYMBOLE*/
                     setPlan((int) nvposition.getX() , (int) nvposition.getY() , SYMBOLE.ROBOT_DEST.getCaractere());
+                }
+                if( ROBOTONDEST(position)){/* Robot etait sur DEST ON NE CHANGE PAS LE SSYMBOLE DE DESTINATION*/
+                    setPlan((int) position.getX() , (int) position.getY() , SYMBOLE.DESTINATION.getCaractere());
                 }
                 return 1 ;
             }
@@ -110,7 +106,6 @@ public class Carte {
             for( int j = 0 ; j < width ; j++){
                 StringBuilder tmp = plan.get(i);
                 if ( tmp.charAt(j) == '.'){
-                    System.out.println("    Points trouve");
                     dest =  new Destination(i, j); 
                     Points.add(dest);
                 }
