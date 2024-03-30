@@ -22,7 +22,6 @@ public class KeyPressedListener implements KeyListener {
 
     @Override
     public void keyPressed( KeyEvent e){
-        System.out.println(this.carte);
         int direction = e.getKeyCode();
         int depReussi = 0 ;
         if( ! this.carte.findepartie()){
@@ -39,7 +38,6 @@ public class KeyPressedListener implements KeyListener {
                 break ;
             case KeyEvent.VK_UP:
                 depReussi= this.carte.deplacer('z');
-                System.out.println(depReussi);
                 this.vue.UpdateGrille();
                 
                 break ;
