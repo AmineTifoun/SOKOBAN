@@ -17,6 +17,7 @@ public class KeyPressedListener implements KeyListener {
     @Override
     public void keyPressed( KeyEvent e){
         int direction = e.getKeyCode();
+        if( ! this.carte.findepartie()){
         switch (direction) {
             case KeyEvent.VK_LEFT:
                 this.carte.deplacer('q');
@@ -40,6 +41,7 @@ public class KeyPressedListener implements KeyListener {
         
             default:
                 break;
+            }
         }
     }
 

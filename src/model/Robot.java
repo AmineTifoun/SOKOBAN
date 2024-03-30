@@ -3,6 +3,7 @@ import java.util.*;
 import java.awt.*;
 
 public class Robot extends Pion implements Deplacable { 
+    private char direction = 'z';/* vers le haut  */
     public Robot ( String  map){
     
        switch(map){
@@ -22,7 +23,12 @@ public class Robot extends Pion implements Deplacable {
         this.symbole = SYMBOLE.ROBOT;
     }
 
+    public char getDirection() {
+        return direction;
+    }
+
     public ArrayList<Point> goLeft(int depX , int depY , ArrayList<StringBuilder> plan , ArrayList<ArrayList<Pion>> cartes){
+        this.direction='q';
         Point point = new Point(depX , depY);
         ArrayList<Point> dep = new ArrayList<Point>();
         dep.add(point);
@@ -50,6 +56,7 @@ public class Robot extends Pion implements Deplacable {
     }
 
     public ArrayList<Point> goRight(int depX , int depY , ArrayList<StringBuilder> plan , ArrayList<ArrayList<Pion>> cartes){
+        this.direction='d';
         Point point = new Point(depX , depY);
         ArrayList<Point> dep = new ArrayList<Point>();
         dep.add(point);
@@ -73,6 +80,7 @@ public class Robot extends Pion implements Deplacable {
         return null ;
     }
     public ArrayList<Point> goUp(int depX , int depY , ArrayList<StringBuilder> plan , ArrayList<ArrayList<Pion>> cartes){
+        this.direction = 'z';
         Point point = new Point(depX , depY);
         ArrayList<Point> dep = new ArrayList<Point>();
         dep.add(point);
@@ -102,6 +110,7 @@ public class Robot extends Pion implements Deplacable {
         return null ;
     }
     public ArrayList<Point> goDown(int depX , int depY , ArrayList<StringBuilder> plan , ArrayList<ArrayList<Pion>> cartes){
+        this.direction ='s';
         Point point = new Point(depX , depY);
         ArrayList<Point> dep = new ArrayList<Point>();
         dep.add(point);

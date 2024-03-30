@@ -65,7 +65,6 @@ public class VueSokoban {
         for (int i = 0; i < this.carte.getHeight(); i++) {
             StringBuilder ligne = this.carte.getPlan().get(i);
             for (int j = 0; j < this.carte.getWidth(); j++) {
-                System.out.println(ligne.charAt(j));
                 JLabel btn = setImage(ligne.charAt(j));
                 btn.setPreferredSize(new Dimension(30, 30));
                 GridBagConstraints gbc = new GridBagConstraints();
@@ -77,8 +76,8 @@ public class VueSokoban {
                 inside.add(btn, gbc); // Ajout du bouton avec les contraintes spécifiées
             }
         }
-        inside.revalidate(); // Force la mise à jour de la disposition des composants
-        inside.repaint(); // Redessine les composants
+        inside.revalidate(); 
+        inside.repaint(); 
     }
     
     public JLabel setImage( char c1){
@@ -96,7 +95,24 @@ public class VueSokoban {
                 break;
             case '@':
             case '+':
-                image = FindImage("C:/Users/amine/OneDrive/Bureau/SOKOBAN/doc/img/Bas.gif");
+                switch (this.carte.getRobot().getDirection()) {
+                    case 'z':
+                        image = FindImage("C:/Users/amine/OneDrive/Bureau/SOKOBAN/doc/img/Haut.gif");
+                        break;
+                    case 'q':
+                        image = FindImage("C:/Users/amine/OneDrive/Bureau/SOKOBAN/doc/img/Gauche.gif");
+                        break;
+                    case 'd':
+                        image = FindImage("C:/Users/amine/OneDrive/Bureau/SOKOBAN/doc/img/Droite.gif");
+                        break ;
+                    case 's':
+                        image = FindImage("C:/Users/amine/OneDrive/Bureau/SOKOBAN/doc/img/Bas.gif");
+                        break;
+                    default:
+                        image = FindImage("C:/Users/amine/OneDrive/Bureau/SOKOBAN/doc/img/Bas.gif");
+                        break;
+                }
+               
                 break;
             case '.':
                 image = FindImage("C:/Users/amine/OneDrive/Bureau/SOKOBAN/doc/img/but.gif");
