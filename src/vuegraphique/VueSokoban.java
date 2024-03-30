@@ -1,21 +1,17 @@
 package vuegraphique;
 import model.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
-import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.io.*;
-import java.net.URI;
+
 
 public class VueSokoban {
     private Carte carte ;
     private JFrame window ;
+    private int Score = 1;
     
    
 
@@ -27,7 +23,14 @@ public class VueSokoban {
 
     public void setCarte() {
         window = new JFrame();
-        window.getContentPane().add(setGrille());
+        JPanel outside = new JPanel(new BorderLayout());
+        JPanel scoreContainer = new JPanel(new BorderLayout());
+        JLabel score = new JLabel("Nombre de Deplacement  : " + this.Score);
+        scoreContainer.add(score , BorderLayout.WEST);
+        scoreContainer.setBackground(Color.WHITE);
+        outside.add(scoreContainer , BorderLayout.NORTH);
+        outside.add(setGrille());
+        window.getContentPane().add(outside);
         window.setTitle("SOKOBAN");
         window.pack(); // Ajuster automatiquement la taille de la fenêtre
         window.setVisible(true);
@@ -36,6 +39,14 @@ public class VueSokoban {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
+
+    public int getScore() {
+        return Score;
+    }
+
+    public void setScore(int score) {
+        Score = score;
+    }
 
     public JPanel setGrille (){
         JPanel inside = new JPanel(new GridBagLayout());
@@ -54,13 +65,17 @@ public class VueSokoban {
             }
         }
         
-        inside.setBorder(BorderFactory.createEmptyBorder(50, 50, 50, 50));
+        inside.setBorder(BorderFactory.createEmptyBorder(20, 50, 50, 50));
         return inside ;
     }
 
 
     public void UpdateGrille() {
-        JPanel inside = (JPanel) this.window.getContentPane().getComponent(0);
+        JPanel outside = (JPanel) this.window.getContentPane().getComponent(0);
+        JPanel scoreCon = (JPanel) outside.getComponent(0);
+        JLabel score = (JLabel )scoreCon.getComponent(0);
+        score.setText("Nombre de Deplacement  : " + this.Score);
+        JPanel inside = (JPanel)outside.getComponent(1);
         inside.removeAll();
         for (int i = 0; i < this.carte.getHeight(); i++) {
             StringBuilder ligne = this.carte.getPlan().get(i);
