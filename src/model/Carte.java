@@ -11,6 +11,10 @@ public class Carte {
     private ArrayList<Destination> PointsDest ;/* Carte contenant les coordonnees des destinations */
     private Robot robot ;/* robot jouant dans la map */
 
+    public ArrayList<StringBuilder> getPlan() {
+        return plan;
+    }
+
     public Carte ( String nomMap ){
         Lecture Lec = new Lecture(nomMap);
         this.width = Lec.getTaille() ;
@@ -154,6 +158,14 @@ public class Carte {
         }
         
     }
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
     public boolean findepartie(){
         boolean fin = true ;
         for (Destination p : this.PointsDest){
